@@ -1,0 +1,44 @@
+:root {
+  --bg-main: #050505;
+  --bg-card: #111111;
+  --bg-hover: rgba(255, 215, 0, 0.05);
+  --gold: #FFD700;
+  --gold-dim: #cca800;
+  --gold-glow: rgba(255, 215, 0, 0.3);
+  --text-primary: #e0e0e0;
+  --text-muted: #888888;
+  --border-color: #333333;
+  --border-active: #FFD700;
+  --font-main: 'Rajdhani', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar for techno feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-dim);
+}
