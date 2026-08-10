@@ -1212,7 +1212,23 @@
             <div class="project-card" id="project-thermo" onclick="toggleProject(this)">
                 <div class="project-card-header">
                     <div class="project-id">PRJ-001 // Primary Directive</div>
-                    <div class="project-title">Thermodynamic Architecture Evolution</div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 0.75rem;">
+                        <div class="project-title" style="margin-bottom: 0;">Thermodynamic Architecture Evolution</div>
+
+                        <a href="#" target="_blank" onclick="event.stopPropagation()"
+                            style="display: flex; align-items: center; gap: 8px; background-color: #FFD700; color: #050505; text-decoration: none; text-transform: uppercase; font-weight: bold; font-family: 'Rajdhani', sans-serif; padding: 6px 12px; font-size: 0.85rem; box-shadow: 0 0 10px rgba(255, 215, 0, 0.4); transition: all 0.3s ease; border-radius: 2px;"
+                            onmouseover="this.style.boxShadow='0 0 20px rgba(255, 215, 0, 0.8)'; this.style.transform='translateY(-2px)'"
+                            onmouseout="this.style.boxShadow='0 0 10px rgba(255, 215, 0, 0.4)'; this.style.transform='translateY(0)'">
+                            LAUNCH ENGINE
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </div>
                     <div class="project-tagline">
                         Software behaves like a physical system. We map codebase history to an
                         evolving graph where physical metrics explain structural decay.
