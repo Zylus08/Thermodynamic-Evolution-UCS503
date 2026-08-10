@@ -699,14 +699,14 @@
                 transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .cyber-check input[type="checkbox"]:checked ~ .check-box {
+        .cyber-check input[type="checkbox"]:checked~.check-box {
             border-color: var(--gold);
             box-shadow:
                 0 0 8px rgba(255, 215, 0, 0.3),
                 0 0 20px rgba(255, 215, 0, 0.1);
         }
 
-        .cyber-check input[type="checkbox"]:checked ~ .check-box::after {
+        .cyber-check input[type="checkbox"]:checked~.check-box::after {
             opacity: 1;
             transform: scale(1);
         }
@@ -719,7 +719,7 @@
             transition: color var(--transition-fast), text-decoration var(--transition-fast);
         }
 
-        .cyber-check input[type="checkbox"]:checked ~ .check-label {
+        .cyber-check input[type="checkbox"]:checked~.check-label {
             color: var(--gold-muted);
             text-decoration: line-through;
             text-decoration-color: var(--gold-dim);
@@ -780,6 +780,14 @@
             min-width: 52px;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transition: border-color var(--transition-fast);
+        }
+
+        .team-avatar .avatar-initials {
+            position: absolute;
+            inset: 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -788,11 +796,37 @@
             font-weight: 700;
             color: var(--gold-muted);
             letter-spacing: 1px;
-            transition: border-color var(--transition-fast), color var(--transition-fast);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            z-index: 2;
+        }
+
+        .team-avatar .avatar-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.1);
+            transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+            z-index: 1;
+        }
+
+        .team-card.expanded .team-avatar .avatar-initials {
+            opacity: 0;
+            transform: scale(0.7);
+        }
+
+        .team-card.expanded .team-avatar .avatar-img {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .team-card:hover .team-avatar {
             border-color: var(--gold-dim);
+        }
+
+        .team-card:hover .team-avatar .avatar-initials {
             color: var(--gold);
         }
 
@@ -842,7 +876,7 @@
         }
 
         .team-card.expanded .team-details {
-            max-height: 250px;
+            max-height: 350px;
         }
 
         .team-details-inner {
@@ -878,6 +912,72 @@
             left: 0;
             color: var(--gold-dim);
             font-size: 0.7rem;
+        }
+
+        /* ── Social / Action Buttons ── */
+        .team-actions {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .team-action-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-muted);
+            text-decoration: none;
+            transition:
+                border-color var(--transition-fast),
+                color var(--transition-fast),
+                box-shadow var(--transition-fast),
+                background var(--transition-fast);
+        }
+
+        .team-action-link svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            transition: fill var(--transition-fast);
+        }
+
+        .team-action-link:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+            background: rgba(255, 215, 0, 0.06);
+            box-shadow:
+                0 0 12px rgba(255, 215, 0, 0.15),
+                0 0 25px rgba(255, 215, 0, 0.05);
+        }
+
+        .team-action-link .action-tooltip {
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-fast);
+        }
+
+        .team-action-link {
+            position: relative;
+        }
+
+        .team-action-link:hover .action-tooltip {
+            opacity: 1;
         }
 
         /* ══════════════════════════════════════════
@@ -1139,10 +1239,18 @@
                                 </div>
                                 <div class="phase-checklist-wrapper">
                                     <ul class="phase-checklist">
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Infrastructure deployment &amp; cloud provisioning</span></label></li>
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Live static site hosted and accessible</span></label></li>
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">CI/CD pipeline configuration</span></label></li>
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Repository scaffolding &amp; branch strategy</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">Infrastructure
+                                                    deployment &amp; cloud provisioning</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">Live static site
+                                                    hosted and accessible</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">CI/CD pipeline
+                                                    configuration</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">Repository
+                                                    scaffolding &amp; branch strategy</span></label></li>
                                     </ul>
                                 </div>
                             </div>
@@ -1159,10 +1267,18 @@
                                 </div>
                                 <div class="phase-checklist-wrapper">
                                     <ul class="phase-checklist">
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Rust-based AST extraction module</span></label></li>
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">PostgreSQL schema design &amp; implementation</span></label></li>
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Go API routing layer</span></label></li>
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Integration testing between parser &amp; database</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">Rust-based AST
+                                                    extraction module</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">PostgreSQL schema
+                                                    design &amp; implementation</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">Go API routing
+                                                    layer</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">Integration
+                                                    testing between parser &amp; database</span></label></li>
                                     </ul>
                                 </div>
                             </div>
@@ -1179,9 +1295,15 @@
                                 </div>
                                 <div class="phase-checklist-wrapper">
                                     <ul class="phase-checklist">
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Thermodynamic formulas applied to codebase metrics</span></label></li>
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">3D WebGL graph visualization engine</span></label></li>
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Real-time metric dashboard rendering</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">Thermodynamic
+                                                    formulas applied to codebase metrics</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">3D WebGL graph
+                                                    visualization engine</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">Real-time metric
+                                                    dashboard rendering</span></label></li>
                                     </ul>
                                 </div>
                             </div>
@@ -1198,9 +1320,15 @@
                                 </div>
                                 <div class="phase-checklist-wrapper">
                                     <ul class="phase-checklist">
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Engine testing against open-source repositories</span></label></li>
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Performance benchmarking &amp; optimization</span></label></li>
-                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Final documentation &amp; project report</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">Engine testing
+                                                    against open-source repositories</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">Performance
+                                                    benchmarking &amp; optimization</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span
+                                                    class="check-box"></span><span class="check-label">Final
+                                                    documentation &amp; project report</span></label></li>
                                     </ul>
                                 </div>
                             </div>
@@ -1221,7 +1349,10 @@
                 <!-- Member 1 -->
                 <div class="team-card" id="team-member-1" onclick="toggleTeam(this)">
                     <div class="team-card-header">
-                        <div class="team-avatar">SM</div>
+                        <div class="team-avatar">
+                            <span class="avatar-initials">SM</span>
+                            <img class="avatar-img" src="assets/saksham.jpeg" alt="Saksham Mishra">
+                        </div>
                         <div class="team-info">
                             <div class="team-name">Saksham Mishra</div>
                             <div class="team-title">Backend & Infrastructure Lead</div>
@@ -1237,6 +1368,24 @@
                                 <li>Docker configuration and container orchestration</li>
                                 <li>Thermodynamic math and metric computation logic</li>
                             </ul>
+                            <div class="team-actions">
+                                <a class="team-action-link" href="#" target="_blank" rel="noopener noreferrer"
+                                    onclick="event.stopPropagation()">
+                                    <span class="action-tooltip">LinkedIn</span>
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                    </svg>
+                                </a>
+                                <a class="team-action-link" href="#" target="_blank" rel="noopener noreferrer"
+                                    onclick="event.stopPropagation()">
+                                    <span class="action-tooltip">Resume</span>
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zm-5 8h8v1.5H8V12zm0 3h8v1.5H8V15zm0 3h5v1.5H8V18z" />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1244,7 +1393,10 @@
                 <!-- Member 2 -->
                 <div class="team-card" id="team-member-2" onclick="toggleTeam(this)">
                     <div class="team-card-header">
-                        <div class="team-avatar">AK</div>
+                        <div class="team-avatar">
+                            <span class="avatar-initials">AK</span>
+                            <img class="avatar-img" src="assets/Abhay.jpeg" alt="Abhay Kumar">
+                        </div>
                         <div class="team-info">
                             <div class="team-name">Abhay Kumar</div>
                             <div class="team-title">Frontend & UI Lead</div>
@@ -1259,6 +1411,24 @@
                                 <li>3D graph visualization with WebGL</li>
                                 <li>Instructor admin dashboard interface</li>
                             </ul>
+                            <div class="team-actions">
+                                <a class="team-action-link" href="#" target="_blank" rel="noopener noreferrer"
+                                    onclick="event.stopPropagation()">
+                                    <span class="action-tooltip">LinkedIn</span>
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                    </svg>
+                                </a>
+                                <a class="team-action-link" href="#" target="_blank" rel="noopener noreferrer"
+                                    onclick="event.stopPropagation()">
+                                    <span class="action-tooltip">Resume</span>
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zm-5 8h8v1.5H8V12zm0 3h8v1.5H8V15zm0 3h5v1.5H8V18z" />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1266,9 +1436,12 @@
                 <!-- Member 3 -->
                 <div class="team-card" id="team-member-3" onclick="toggleTeam(this)">
                     <div class="team-card-header">
-                        <div class="team-avatar">AG</div>
+                        <div class="team-avatar">
+                            <span class="avatar-initials">AG</span>
+                            <img class="avatar-img" src="assets/Aditya.jpeg" alt="Aditya Gulalia">
+                        </div>
                         <div class="team-info">
-                            <div class="team-name">Aaditya Gulalia</div>
+                            <div class="team-name">Aditya Gulalia</div>
                             <div class="team-title">DevOps & Analytics Lead</div>
                         </div>
                         <div class="team-expand-arrow">▸</div>
@@ -1281,6 +1454,24 @@
                                 <li>Database schema design and implementation</li>
                                 <li>Validating software entropy metrics</li>
                             </ul>
+                            <div class="team-actions">
+                                <a class="team-action-link" href="#" target="_blank" rel="noopener noreferrer"
+                                    onclick="event.stopPropagation()">
+                                    <span class="action-tooltip">LinkedIn</span>
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                    </svg>
+                                </a>
+                                <a class="team-action-link" href="#" target="_blank" rel="noopener noreferrer"
+                                    onclick="event.stopPropagation()">
+                                    <span class="action-tooltip">Resume</span>
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zm-5 8h8v1.5H8V12zm0 3h8v1.5H8V15zm0 3h5v1.5H8V18z" />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
