@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # Nginx Reverse Proxy
+  proxy:
+    image: nginx:alpine
+    container_name: ucs503_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - engine_net
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  # Go API Backend
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: ucs503_api
+    expose:
+      - "8080" # Exposed only to the internal Docker bridge network
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=engine_secret
+      - DB_NAME=thermodynamic_db
+    networks:
+      - engine_net
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: ucs503_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: engine_secret
+      POSTGRES_DB: thermodynamic_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - engine_net
+    restart: unless-stopped
+
+networks:
+  engine_net:
+    driver: bridge
+
+volumes:
+  # Persistent volume for the PostgreSQL database
+  pgdata:

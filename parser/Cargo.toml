@@ -1,0 +1,19 @@
+[package]
+name = "ast_parser"
+version = "0.1.0"
+edition = "2021"
+description = "Rust AST extraction engine for Thermodynamic Architecture Evolution"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# Used for parsing source code into Abstract Syntax Trees (AST)
+tree-sitter = "0.20.10"
+
+# Used for traversing Git repository history and commits
+git2 = "0.18.2"
+
+# Standard error handling and serialization utilities
+anyhow = "1.0.81"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
