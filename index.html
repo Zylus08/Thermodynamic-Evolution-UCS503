@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="UCS503 Software Engineering Lab — Thermodynamic Architecture Evolution project workspace.">
+    <title>SYS.INITIALIZE // UCS503</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ══════════════════════════════════════════
+           RESET & BASE
+           ══════════════════════════════════════════ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #050505;
+            --bg-secondary: #111111;
+            --bg-card: #0a0a0a;
+            --bg-card-hover: #0f0f0f;
+            --gold: #FFD700;
+            --gold-dim: #b8992080;
+            --gold-muted: #9a8a50;
+            --gold-glow: rgba(255, 215, 0, 0.15);
+            --gold-glow-strong: rgba(255, 215, 0, 0.35);
+            --text-primary: #e0e0e0;
+            --text-secondary: #777777;
+            --text-muted: #555555;
+            --border-color: #1a1a1a;
+            --border-gold: rgba(255, 215, 0, 0.25);
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Rajdhani', sans-serif;
+            --font-mono: 'Share Tech Mono', monospace;
+            --transition-fast: 0.2s ease;
+            --transition-med: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* ══════════════════════════════════════════
+           GRID BACKGROUND
+           ══════════════════════════════════════════ */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 215, 0, 0.018) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 215, 0, 0.018) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Scanline overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.03) 2px,
+                    rgba(0, 0, 0, 0.03) 4px);
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ══════════════════════════════════════════
+           HEADER
+           ══════════════════════════════════════════ */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 2rem;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .header-title {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .header-title .blink {
+            animation: blink 1.2s step-end infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .nav-tab {
+            font-family: var(--font-display);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 0.55rem 1.3rem;
+            cursor: pointer;
+            transition:
+                color var(--transition-fast),
+                border-color var(--transition-fast),
+                background var(--transition-fast),
+                box-shadow var(--transition-fast),
+                text-shadow var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width var(--transition-med), left var(--transition-med);
+        }
+
+        .nav-tab:hover {
+            color: var(--text-primary);
+            border-color: var(--gold-dim);
+            background: rgba(255, 215, 0, 0.03);
+        }
+
+        .nav-tab:hover::before {
+            width: 80%;
+            left: 10%;
+        }
+
+        .nav-tab.active {
+            color: var(--gold);
+            border-color: var(--gold);
+            background: rgba(255, 215, 0, 0.06);
+            box-shadow:
+                0 0 15px rgba(255, 215, 0, 0.1),
+                inset 0 0 15px rgba(255, 215, 0, 0.03);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+        }
+
+        .nav-tab.active::before {
+            width: 100%;
+            left: 0;
+            background: var(--gold);
+            box-shadow: 0 0 8px var(--gold);
+        }
+
+        /* ══════════════════════════════════════════
+           MAIN CONTENT
+           ══════════════════════════════════════════ */
+        main {
+            position: relative;
+            z-index: 1;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 110px 2rem 4rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn var(--transition-slow) ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section headers */
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-label::before {
+            content: '// ';
+            color: var(--gold-muted);
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        h1 .accent {
+            color: var(--gold);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.25);
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        /* ══════════════════════════════════════════
+           HOME TAB
+           ══════════════════════════════════════════ */
+        .home-content {
+            margin-top: 1rem;
+        }
+
+        .terminal-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-left: 2px solid var(--gold-dim);
+            padding: 1.8rem 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .terminal-block:hover {
+            border-left-color: var(--gold);
+            box-shadow: -4px 0 20px rgba(255, 215, 0, 0.05);
+        }
+
+        .terminal-block p {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .terminal-block .highlight {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .status-line {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--gold);
+            letter-spacing: 1.5px;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 215, 0, 0.04);
+            border: 1px solid var(--border-gold);
+            display: inline-block;
+            margin-top: 1rem;
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+            animation: statusPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.05);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(255, 215, 0, 0.12);
+            }
+        }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            margin: 2.5rem 0;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .meta-item {
+            padding: 1.2rem 1.5rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            transition: border-color var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .meta-item:hover {
+            border-color: var(--gold-dim);
+            transform: translateY(-2px);
+        }
+
+        .meta-item .label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        .meta-item .value {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        /* ══════════════════════════════════════════
+           PROJECT CARD
+           ══════════════════════════════════════════ */
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition:
+                border-color var(--transition-med),
+                box-shadow var(--transition-med),
+                background var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.02), transparent 60%);
+            opacity: 0;
+            transition: opacity var(--transition-med);
+        }
+
+        .project-card:hover {
+            border-color: var(--border-gold);
+            background: var(--bg-card-hover);
+            box-shadow:
+                0 0 30px rgba(255, 215, 0, 0.05),
+                inset 0 0 30px rgba(255, 215, 0, 0.01);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card-header {
+            padding: 2rem 2rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-id {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            transition: color var(--transition-fast);
+        }
+
+        .project-card:hover .project-title {
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .project-tagline {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .expand-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 2rem;
+            border-top: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        .expand-indicator .arrow {
+            display: inline-block;
+            transition: transform var(--transition-med);
+            color: var(--gold-muted);
+            font-size: 0.75rem;
+        }
+
+        .project-card.expanded .expand-indicator .arrow {
+            transform: rotate(90deg);
+        }
+
+        /* Accordion content */
+        .project-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--transition-slow), padding var(--transition-slow);
+        }
+
+        .project-card.expanded .project-details {
+            max-height: 1400px;
+        }
+
+        .project-details-inner {
+            padding: 0 2rem 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .phase-list {
+            list-style: none;
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        /* ── Phase Accordion Heading ── */
+        .phase-heading {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition:
+                border-color var(--transition-med),
+                background var(--transition-fast),
+                box-shadow var(--transition-med);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-heading::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--gold-dim);
+            transition: background var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .phase-heading:hover {
+            border-color: var(--border-gold);
+            background: rgba(255, 215, 0, 0.025);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.04);
+        }
+
+        .phase-heading:hover::before {
+            background: var(--gold);
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+        }
+
+        .phase-heading:hover .phase-name {
+            color: var(--gold);
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+        }
+
+        .phase-heading .phase-arrow {
+            font-size: 0.7rem;
+            color: var(--gold-muted);
+            transition: transform var(--transition-med), color var(--transition-fast);
+            min-width: 12px;
+        }
+
+        .phase-item.expanded .phase-heading .phase-arrow {
+            transform: rotate(90deg);
+            color: var(--gold);
+        }
+
+        .phase-item.expanded .phase-heading {
+            border-color: var(--border-gold);
+            background: rgba(255, 215, 0, 0.03);
+        }
+
+        .phase-item.expanded .phase-heading::before {
+            background: var(--gold);
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+        }
+
+        .phase-tag {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--gold);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            min-width: 55px;
+        }
+
+        .phase-meta {
+            flex: 1;
+        }
+
+        .phase-name {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            transition: color var(--transition-fast), text-shadow var(--transition-fast);
+        }
+
+        .phase-weeks {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-top: 0.15rem;
+        }
+
+        /* ── Phase Checklist Accordion ── */
+        .phase-checklist-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--transition-med);
+        }
+
+        .phase-item.expanded .phase-checklist-wrapper {
+            max-height: 400px;
+        }
+
+        .phase-checklist {
+            list-style: none;
+            padding: 0.75rem 1.25rem 1rem;
+            padding-left: calc(1.25rem + 55px + 1rem + 12px + 1rem);
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        /* ── Custom Cyberpunk Checkbox ── */
+        .cyber-check {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            padding: 0.4rem 0;
+            transition: opacity var(--transition-fast);
+        }
+
+        .cyber-check:hover {
+            opacity: 1;
+        }
+
+        .cyber-check input[type="checkbox"] {
+            display: none;
+        }
+
+        .cyber-check .check-box {
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            border: 1px solid var(--text-muted);
+            background: transparent;
+            position: relative;
+            transition:
+                border-color var(--transition-fast),
+                background var(--transition-fast),
+                box-shadow var(--transition-fast);
+        }
+
+        .cyber-check .check-box::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            opacity: 0;
+            transform: scale(0);
+            transition:
+                opacity var(--transition-fast),
+                transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .cyber-check input[type="checkbox"]:checked ~ .check-box {
+            border-color: var(--gold);
+            box-shadow:
+                0 0 8px rgba(255, 215, 0, 0.3),
+                0 0 20px rgba(255, 215, 0, 0.1);
+        }
+
+        .cyber-check input[type="checkbox"]:checked ~ .check-box::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .cyber-check .check-label {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            transition: color var(--transition-fast), text-decoration var(--transition-fast);
+        }
+
+        .cyber-check input[type="checkbox"]:checked ~ .check-label {
+            color: var(--gold-muted);
+            text-decoration: line-through;
+            text-decoration-color: var(--gold-dim);
+        }
+
+        .cyber-check:hover .check-box {
+            border-color: var(--gold-muted);
+            box-shadow: 0 0 6px rgba(255, 215, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .phase-checklist {
+                padding-left: 1.25rem;
+            }
+
+            .phase-heading {
+                gap: 0.6rem;
+                padding: 0.8rem 1rem;
+            }
+        }
+
+        /* ══════════════════════════════════════════
+           TEAM TAB
+           ══════════════════════════════════════════ */
+        .team-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .team-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition:
+                border-color var(--transition-med),
+                box-shadow var(--transition-med),
+                background var(--transition-fast);
+            overflow: hidden;
+        }
+
+        .team-card:hover {
+            border-color: var(--border-gold);
+            background: var(--bg-card-hover);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.04);
+        }
+
+        .team-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .team-avatar {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--gold-muted);
+            letter-spacing: 1px;
+            transition: border-color var(--transition-fast), color var(--transition-fast);
+        }
+
+        .team-card:hover .team-avatar {
+            border-color: var(--gold-dim);
+            color: var(--gold);
+        }
+
+        .team-info {
+            flex: 1;
+        }
+
+        .team-name {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+            transition: color var(--transition-fast);
+        }
+
+        .team-card:hover .team-name {
+            color: var(--gold);
+        }
+
+        .team-title {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .team-expand-arrow {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            transition: transform var(--transition-med), color var(--transition-fast);
+        }
+
+        .team-card.expanded .team-expand-arrow {
+            transform: rotate(90deg);
+            color: var(--gold);
+        }
+
+        /* Team accordion */
+        .team-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--transition-med);
+        }
+
+        .team-card.expanded .team-details {
+            max-height: 250px;
+        }
+
+        .team-details-inner {
+            padding: 0 1.5rem 1.5rem;
+            padding-left: calc(1.5rem + 52px + 1.5rem);
+        }
+
+        .responsibilities-label {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+
+        .responsibilities-list {
+            list-style: none;
+        }
+
+        .responsibilities-list li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 0.3rem 0;
+            padding-left: 1rem;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .responsibilities-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--gold-dim);
+            font-size: 0.7rem;
+        }
+
+        /* ══════════════════════════════════════════
+           FOOTER
+           ══════════════════════════════════════════ */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        footer p {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════════
+           CORNER DECORATIONS
+           ══════════════════════════════════════════ */
+        .corner-decor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .corner-decor.top-left {
+            top: 80px;
+            left: 10px;
+            border-top: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
+        }
+
+        .corner-decor.top-right {
+            top: 80px;
+            right: 10px;
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .corner-decor.bottom-left {
+            bottom: 10px;
+            left: 10px;
+            border-bottom: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
+        }
+
+        .corner-decor.bottom-right {
+            bottom: 10px;
+            right: 10px;
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+        }
+
+        /* ══════════════════════════════════════════
+           RESPONSIVE
+           ══════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-direction: column;
+                height: auto;
+                padding: 1rem 0;
+                gap: 0.75rem;
+            }
+
+            .header-title {
+                font-size: 0.7rem;
+            }
+
+            nav {
+                gap: 0.15rem;
+            }
+
+            .nav-tab {
+                font-size: 0.55rem;
+                padding: 0.45rem 0.8rem;
+                letter-spacing: 1.5px;
+            }
+
+            main {
+                padding-top: 140px;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                letter-spacing: 2px;
+            }
+
+            .project-card-header,
+            .expand-indicator {
+                padding-left: 1.2rem;
+                padding-right: 1.2rem;
+            }
+
+            .project-details-inner {
+                padding: 0 1.2rem 1.5rem;
+            }
+
+
+
+            .team-details-inner {
+                padding-left: 1.5rem;
+            }
+
+            .meta-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .corner-decor {
+                display: none;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .nav-tab {
+                font-size: 0.5rem;
+                padding: 0.4rem 0.6rem;
+                letter-spacing: 1px;
+            }
+
+            h1 {
+                font-size: 1.2rem;
+            }
+
+            .team-card-header {
+                gap: 1rem;
+            }
+
+            .team-avatar {
+                width: 42px;
+                height: 42px;
+                min-width: 42px;
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Corner Decorations -->
+    <div class="corner-decor top-left"></div>
+    <div class="corner-decor top-right"></div>
+    <div class="corner-decor bottom-left"></div>
+    <div class="corner-decor bottom-right"></div>
+
+    <!-- ═══════════ HEADER ═══════════ -->
+    <header>
+        <div class="header-inner">
+            <div class="header-title">
+                SYS.INITIALIZE <span style="color: var(--text-muted);">//</span> UCS503<span class="blink">_</span>
+            </div>
+            <nav id="main-nav">
+                <button class="nav-tab active" data-tab="home" id="nav-home">[ HOME ]</button>
+                <button class="nav-tab" data-tab="projects" id="nav-projects">[ PROJECTS ]</button>
+                <button class="nav-tab" data-tab="team" id="nav-team">[ TEAM ]</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ═══════════ MAIN CONTENT ═══════════ -->
+    <main>
+
+        <!-- ──────── HOME ──────── -->
+        <section class="section active" id="section-home">
+            <div class="section-label">system.home</div>
+            <h1>Welcome to the <span class="accent">UCS503</span> Workspace</h1>
+
+            <div class="home-content">
+                <div class="terminal-block">
+                    <p>
+                        <span class="highlight">System initialized.</span>
+                        The UCS503 Software Engineering Lab workspace is now active.
+                        All operatives have been onboarded and development protocols are in place.
+                        This workspace serves as the command center for all project artifacts,
+                        team coordination, and milestone tracking.
+                    </p>
+                </div>
+
+                <div class="terminal-block">
+                    <p>
+                        <span class="highlight">Objective:</span>
+                        To design, develop, and deploy a production-grade analytical engine
+                        over a 4-month lifecycle — applying industry-standard software engineering
+                        methodologies including agile sprints, continuous integration, rigorous testing,
+                        and structured documentation.
+                    </p>
+                </div>
+
+                <div class="status-line">
+                    [ STATUS: TEAM FINALIZED. AWAITING CORE DEPLOYMENT ]
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="section-label">system.metadata</div>
+                <div class="meta-grid">
+                    <div class="meta-item">
+                        <div class="label">Course</div>
+                        <div class="value">UCS503</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="label">Duration</div>
+                        <div class="value">16 Weeks</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="label">Team Size</div>
+                        <div class="value">3 Operatives</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="label">Methodology</div>
+                        <div class="value">Agile / CI-CD</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──────── PROJECTS ──────── -->
+        <section class="section" id="section-projects">
+            <div class="section-label">system.projects</div>
+            <h2>Active Projects</h2>
+
+            <div class="project-card" id="project-thermo" onclick="toggleProject(this)">
+                <div class="project-card-header">
+                    <div class="project-id">PRJ-001 // Primary Directive</div>
+                    <div class="project-title">Thermodynamic Architecture Evolution</div>
+                    <div class="project-tagline">
+                        Software behaves like a physical system. We map codebase history to an
+                        evolving graph where physical metrics explain structural decay.
+                    </div>
+                </div>
+                <div class="expand-indicator">
+                    <span class="arrow">▸</span>
+                    <span>View Plan of Development</span>
+                </div>
+                <div class="project-details">
+                    <div class="project-details-inner">
+                        <div class="section-label" style="margin-top: 1.5rem;">development.phases</div>
+                        <div class="phase-list">
+
+                            <!-- Phase 1 -->
+                            <div class="phase-item" id="phase-1">
+                                <div class="phase-heading" onclick="togglePhase(event, this)">
+                                    <span class="phase-arrow">▸</span>
+                                    <span class="phase-tag">Phase 1</span>
+                                    <div class="phase-meta">
+                                        <div class="phase-name">Foundation</div>
+                                        <div class="phase-weeks">Weeks 1–3</div>
+                                    </div>
+                                </div>
+                                <div class="phase-checklist-wrapper">
+                                    <ul class="phase-checklist">
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Infrastructure deployment &amp; cloud provisioning</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Live static site hosted and accessible</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">CI/CD pipeline configuration</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Repository scaffolding &amp; branch strategy</span></label></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Phase 2 -->
+                            <div class="phase-item" id="phase-2">
+                                <div class="phase-heading" onclick="togglePhase(event, this)">
+                                    <span class="phase-arrow">▸</span>
+                                    <span class="phase-tag">Phase 2</span>
+                                    <div class="phase-meta">
+                                        <div class="phase-name">The Engine</div>
+                                        <div class="phase-weeks">Weeks 4–7</div>
+                                    </div>
+                                </div>
+                                <div class="phase-checklist-wrapper">
+                                    <ul class="phase-checklist">
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Rust-based AST extraction module</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">PostgreSQL schema design &amp; implementation</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Go API routing layer</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Integration testing between parser &amp; database</span></label></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Phase 3 -->
+                            <div class="phase-item" id="phase-3">
+                                <div class="phase-heading" onclick="togglePhase(event, this)">
+                                    <span class="phase-arrow">▸</span>
+                                    <span class="phase-tag">Phase 3</span>
+                                    <div class="phase-meta">
+                                        <div class="phase-name">Computation &amp; Rendering</div>
+                                        <div class="phase-weeks">Weeks 8–11</div>
+                                    </div>
+                                </div>
+                                <div class="phase-checklist-wrapper">
+                                    <ul class="phase-checklist">
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Thermodynamic formulas applied to codebase metrics</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">3D WebGL graph visualization engine</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Real-time metric dashboard rendering</span></label></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Phase 4 -->
+                            <div class="phase-item" id="phase-4">
+                                <div class="phase-heading" onclick="togglePhase(event, this)">
+                                    <span class="phase-arrow">▸</span>
+                                    <span class="phase-tag">Phase 4</span>
+                                    <div class="phase-meta">
+                                        <div class="phase-name">Validation</div>
+                                        <div class="phase-weeks">Weeks 12–16</div>
+                                    </div>
+                                </div>
+                                <div class="phase-checklist-wrapper">
+                                    <ul class="phase-checklist">
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Engine testing against open-source repositories</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Performance benchmarking &amp; optimization</span></label></li>
+                                        <li><label class="cyber-check"><input type="checkbox"><span class="check-box"></span><span class="check-label">Final documentation &amp; project report</span></label></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──────── TEAM ──────── -->
+        <section class="section" id="section-team">
+            <div class="section-label">system.team</div>
+            <h2>Project Operatives</h2>
+
+            <div class="team-list">
+
+                <!-- Member 1 -->
+                <div class="team-card" id="team-member-1" onclick="toggleTeam(this)">
+                    <div class="team-card-header">
+                        <div class="team-avatar">SM</div>
+                        <div class="team-info">
+                            <div class="team-name">Saksham Mishra</div>
+                            <div class="team-title">Backend & Infrastructure Lead</div>
+                        </div>
+                        <div class="team-expand-arrow">▸</div>
+                    </div>
+                    <div class="team-details">
+                        <div class="team-details-inner">
+                            <div class="responsibilities-label">// Assigned Responsibilities</div>
+                            <ul class="responsibilities-list">
+                                <li>Rust parser development for AST extraction</li>
+                                <li>Go API backend routing and service layer</li>
+                                <li>Docker configuration and container orchestration</li>
+                                <li>Thermodynamic math and metric computation logic</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="team-card" id="team-member-2" onclick="toggleTeam(this)">
+                    <div class="team-card-header">
+                        <div class="team-avatar">AK</div>
+                        <div class="team-info">
+                            <div class="team-name">Abhay Kumar</div>
+                            <div class="team-title">Frontend & UI Lead</div>
+                        </div>
+                        <div class="team-expand-arrow">▸</div>
+                    </div>
+                    <div class="team-details">
+                        <div class="team-details-inner">
+                            <div class="responsibilities-label">// Assigned Responsibilities</div>
+                            <ul class="responsibilities-list">
+                                <li>React architecture and component design</li>
+                                <li>3D graph visualization with WebGL</li>
+                                <li>Instructor admin dashboard interface</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="team-card" id="team-member-3" onclick="toggleTeam(this)">
+                    <div class="team-card-header">
+                        <div class="team-avatar">AG</div>
+                        <div class="team-info">
+                            <div class="team-name">Aaditya Gulalia</div>
+                            <div class="team-title">DevOps & Analytics Lead</div>
+                        </div>
+                        <div class="team-expand-arrow">▸</div>
+                    </div>
+                    <div class="team-details">
+                        <div class="team-details-inner">
+                            <div class="responsibilities-label">// Assigned Responsibilities</div>
+                            <ul class="responsibilities-list">
+                                <li>CI/CD pipeline architecture and deployment</li>
+                                <li>Database schema design and implementation</li>
+                                <li>Validating software entropy metrics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══════════ FOOTER ═══════════ -->
+    <footer>
+        <p>UCS503 Software Engineering Lab &mdash; Session 2026 &mdash; All Systems Nominal</p>
+    </footer>
+
+    <!-- ═══════════ JAVASCRIPT ═══════════ -->
+    <script>
+        /* ──────────────────────────────────
+           TAB NAVIGATION
+           ────────────────────────────────── */
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const sections = document.querySelectorAll('.section');
+
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.getAttribute('data-tab');
+
+                // Update active tab
+                navTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Show target section, hide others
+                sections.forEach(section => {
+                    if (section.id === `section-${targetId}`) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        /* ──────────────────────────────────
+           PROJECT CARD ACCORDION
+           ────────────────────────────────── */
+        function toggleProject(card) {
+            card.classList.toggle('expanded');
+        }
+
+        /* ──────────────────────────────────
+           PHASE SUB-ACCORDION
+           ────────────────────────────────── */
+        function togglePhase(event, heading) {
+            event.stopPropagation();
+            const phaseItem = heading.closest('.phase-item');
+            phaseItem.classList.toggle('expanded');
+        }
+
+        // Prevent any click inside the checklists from bubbling to the project card
+        document.querySelectorAll('.phase-checklist-wrapper').forEach(wrapper => {
+            wrapper.addEventListener('click', e => e.stopPropagation());
+        });
+
+        /* ──────────────────────────────────
+           TEAM CARD ACCORDION
+           ────────────────────────────────── */
+        function toggleTeam(card) {
+            // Close other team cards
+            document.querySelectorAll('.team-card').forEach(c => {
+                if (c !== card) c.classList.remove('expanded');
+            });
+            card.classList.toggle('expanded');
+        }
+    </script>
+
+</body>
+
+</html>
