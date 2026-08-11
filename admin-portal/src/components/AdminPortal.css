@@ -309,3 +309,214 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* ─── Tab Bar ──────────────────────────────────────────────────────── */
+
+.tab-bar {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 215, 0, 0.03);
+}
+
+.tab-btn.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+  background: rgba(255, 215, 0, 0.05);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.08);
+}
+
+/* ─── Archive View ─────────────────────────────────────────────────── */
+
+.archive-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.archive-header-row .archive-title {
+  font-family: monospace;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+}
+
+.cyber-button-sm {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 0.4rem 0.9rem;
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+}
+
+.cyber-button-sm:hover:not(:disabled) {
+  background: var(--gold);
+  color: var(--bg-main);
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+.cyber-button-sm:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.archive-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem;
+  font-family: monospace;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+}
+
+.archive-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem;
+  text-align: center;
+  font-family: monospace;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  gap: 0.4rem;
+}
+
+/* ─── Archive Table ────────────────────────────────────────────────── */
+
+.archive-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+}
+
+.archive-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: monospace;
+  font-size: 0.8rem;
+}
+
+.archive-table thead tr {
+  background: rgba(255, 215, 0, 0.05);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.archive-table th {
+  text-align: left;
+  padding: 0.8rem 1rem;
+  color: var(--gold-dim);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.archive-table tbody tr {
+  border-bottom: 1px solid var(--border-color);
+  transition: background 0.2s ease;
+}
+
+.archive-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.archive-table tbody tr:hover {
+  background: rgba(255, 215, 0, 0.03);
+}
+
+.archive-table td {
+  padding: 0.9rem 1rem;
+  color: var(--text-secondary);
+  vertical-align: top;
+  line-height: 1.4;
+}
+
+.archive-id {
+  color: var(--text-muted) !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 1px;
+}
+
+.archive-title-cell {
+  color: var(--text-primary) !important;
+  font-weight: 600;
+  max-width: 180px;
+}
+
+.archive-version {
+  color: var(--gold) !important;
+  white-space: nowrap;
+}
+
+.archive-date {
+  white-space: nowrap;
+  color: var(--text-muted) !important;
+}
+
+.archive-summary {
+  max-width: 200px;
+  color: var(--text-muted) !important;
+  font-size: 0.75rem;
+}
+
+/* ─── Download Link ─────────────────────────────────────────────────── */
+
+.archive-download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  padding: 0.35rem 0.7rem;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.archive-download-link:hover {
+  background: var(--gold);
+  color: var(--bg-main);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+}
+
