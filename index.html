@@ -350,6 +350,45 @@
             animation: statusPulse 3s ease-in-out infinite;
         }
 
+        .admin-cta {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            align-items: flex-start;
+        }
+
+        .admin-cta a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.9rem 1.25rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            background: rgba(255, 215, 0, 0.08);
+            color: var(--gold);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+        }
+
+        .admin-cta a:hover {
+            background: rgba(255, 215, 0, 0.12);
+            transform: translateY(-1px);
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+        }
+
+        .admin-cta-note {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 680px;
+        }
+
         @keyframes statusPulse {
 
             0%,
@@ -1143,6 +1182,7 @@
                 <button class="nav-tab active" data-tab="home" id="nav-home">[ HOME ]</button>
                 <button class="nav-tab" data-tab="projects" id="nav-projects">[ PROJECTS ]</button>
                 <button class="nav-tab" data-tab="team" id="nav-team">[ TEAM ]</button>
+                <a class="nav-tab" href="/admin-portal/" target="_blank" rel="noopener noreferrer">[ ADMIN ]</a>
             </nav>
         </div>
     </header>
@@ -1178,6 +1218,16 @@
 
                 <div class="status-line">
                     [ STATUS: TEAM FINALIZED. AWAITING CORE DEPLOYMENT ]
+                </div>
+
+                <div class="admin-cta">
+                    <a href="/admin-portal/" target="_blank" rel="noopener noreferrer">
+                        ADMIN PORTAL
+                    </a>
+                    <div class="admin-cta-note">
+                        Open the instructor admin dashboard to upload new presentation versions, publish deliverables,
+                        and preserve prior versions without replacing them.
+                    </div>
                 </div>
 
                 <div class="divider"></div>
@@ -1507,7 +1557,7 @@
         /* ──────────────────────────────────
            TAB NAVIGATION
            ────────────────────────────────── */
-        const navTabs = document.querySelectorAll('.nav-tab');
+        const navTabs = document.querySelectorAll('button.nav-tab');
         const sections = document.querySelectorAll('.section');
 
         navTabs.forEach(tab => {
