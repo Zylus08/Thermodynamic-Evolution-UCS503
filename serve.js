@@ -4,7 +4,7 @@ const path = require('path');
 
 const PORT = process.env.PORT || 8000;
 const ROOT_DIR = path.resolve(__dirname);
-const ADMIN_DIST = path.join(ROOT_DIR, 'admin-portal', 'dist');
+const ADMIN_DIST = path.join(ROOT_DIR, 'admin-portal');
 
 const mimeTypes = {
   '.html': 'text/html',
