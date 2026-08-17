@@ -1,4 +1,4 @@
-name: Publish API Docker image & optional Render deploy
+name: Publish API Docker image
 
 on:
   push:
@@ -41,11 +41,6 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/ucs503-api:latest
             ghcr.io/${{ github.repository_owner }}/ucs503-api:${{ github.sha }}
 
-      - name: Trigger Render deploy (optional)
-        if: ${{ secrets.RENDER_SERVICE_ID && secrets.RENDER_API_KEY }}
-        run: |
-          echo "Triggering Render deploy..."
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-            -H "Accept: application/json" \
-            https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys
+      # Render deployment is not used in this repo.
+      # If you later add Render, use a valid condition like:
+      #   if: ${{ secrets.RENDER_SERVICE_ID != '' && secrets.RENDER_API_KEY != '' }}
