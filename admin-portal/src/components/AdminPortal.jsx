@@ -3,6 +3,8 @@ import { useDropzone } from 'react-dropzone';
 import { Shield, Lock, UploadCloud, File, CheckCircle, Terminal, Loader2 } from 'lucide-react';
 import './AdminPortal.css';
 
+const apiBase = import.meta.env.VITE_API_BASE || '/api';
+
 const AdminPortal = () => {
   // Authentication State
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -26,12 +28,24 @@ const AdminPortal = () => {
   const [publishSuccess, setPublishSuccess] = useState(false);
 
   // --- Auth Handlers ---
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (password === 'admin') {
+    setAuthError('');
+
+    try {
+      const resp = await fetch(apiBase + '/login', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ passkey: password })
+      });
+
+      if (!resp.ok) {
+        throw new Error('Invalid passkey');
+      }
+
       setIsAuthenticated(true);
-      setAuthError('');
-    } else {
+    } catch (err) {
       setAuthError('ACCESS DENIED. INVALID CREDENTIALS.');
     }
   };
@@ -41,9 +55,9 @@ const AdminPortal = () => {
     setFileError('');
     if (acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
-      // Simulated validation check (e.g. limit to 50MB)
-      if (file.size > 50 * 1024 * 1024) {
-        setFileError('FILE EXCEEDS MAXIMUM ALLOWED SIZE (50MB).');
+      // Simulated validation check (e.g. limit to 100MB)
+      if (file.size > 100 * 1024 * 1024) {
+        setFileError('FILE EXCEEDS MAXIMUM ALLOWED SIZE (100MB).');
         setSelectedFile(null);
         return;
       }
@@ -59,34 +73,113 @@ const AdminPortal = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple: false,
-    // Accept standard document/archive formats for a project
+    // Accept standard document/archive formats for a project (added PPT/PPTX)
     accept: {
       'application/pdf': ['.pdf'],
       'application/zip': ['.zip'],
       'application/x-rar-compressed': ['.rar'],
       'text/markdown': ['.md'],
-      'text/plain': ['.txt']
+      'text/plain': ['.txt'],
+      'application/vnd.ms-powerpoint': ['.ppt'],
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation': ['.pptx']
     }
   });
 
   // --- Form Handlers ---
+  const [artifacts, setArtifacts] = useState([]);
+  const [loadingArtifacts, setLoadingArtifacts] = useState(false);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handlePublish = () => {
-    if (!selectedFile || !formData.title || !formData.version) {
-      return; // Basic validation
+  const fetchArchives = async () => {
+    setLoadingArtifacts(true);
+    setFileError('');
+    try {
+      const resp = await fetch(apiBase + '/archives', { credentials: 'include' });
+      if (!resp.ok) {
+        setFileError('Failed to load artifacts: ' + resp.statusText);
+        setArtifacts([]);
+        setLoadingArtifacts(false);
+        return;
+      }
+      const data = await resp.json();
+      setArtifacts(data);
+    } catch (err) {
+      console.error(err);
+      setFileError('Network error when fetching artifacts.');
     }
-    
+    setLoadingArtifacts(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await fetch(apiBase + '/logout', {
+        method: 'POST',
+        credentials: 'include'
+      });
+    } catch (err) {
+      console.error('Logout failed', err);
+    }
+
+    setIsAuthenticated(false);
+    setPassword('');
+    setArtifacts([]);
+    setSelectedFile(null);
+    setPublishSuccess(false);
+    setFileError('');
+  };
+
+  const handleDelete = async (filename) => {
+    if (!confirm('Delete artifact ' + filename + '? This cannot be undone.')) return;
+    try {
+      const resp = await fetch(apiBase + '/archive?filename=' + encodeURIComponent(filename), {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+      if (!resp.ok) { const txt = await resp.text(); setFileError('Delete failed: ' + txt); return; }
+      fetchArchives();
+    } catch (err) { console.error(err); setFileError('Network error deleting artifact.'); }
+  };
+
+  const handlePublish = async () => {
+    if (!selectedFile || !formData.title || !formData.version) {
+      return;
+    }
+
     setIsPublishing(true);
-    
-    // Simulate API Call execution
-    setTimeout(() => {
+    setFileError('');
+
+    try {
+      const fd = new FormData();
+      fd.append('file', selectedFile);
+      fd.append('title', formData.title);
+      fd.append('version', formData.version);
+      fd.append('date', formData.date);
+      fd.append('summary', formData.summary);
+
+      const resp = await fetch(apiBase + '/upload', {
+        method: 'POST',
+        credentials: 'include',
+        body: fd
+      });
+
+      if (!resp.ok) {
+        const txt = await resp.text();
+        setFileError(`UPLOAD FAILED: ${txt}`);
+        setIsPublishing(false);
+        return;
+      }
+
       setIsPublishing(false);
       setPublishSuccess(true);
-    }, 2500);
+    } catch (err) {
+      console.error('Upload error', err);
+      setFileError('NETWORK ERROR: Unable to reach upload endpoint.');
+      setIsPublishing(false);
+    }
   };
 
   // --- Render Auth Screen ---
@@ -178,6 +271,12 @@ const AdminPortal = () => {
         </div>
 
         <div className="dashboard-container">
+          <div style={{display:'flex', justifyContent:'space-between', gap:'0.75rem', marginBottom:'1rem', flexWrap:'wrap'}}>
+            <button className="cyber-button" onClick={fetchArchives} type="button">Load Artifacts</button>
+            <button className="cyber-button" onClick={()=>{setArtifacts([]);}} type="button" style={{background:'#2a2a2a'}}>Clear</button>
+            <button className="cyber-button" onClick={handleLogout} type="button" style={{background:'#2a2a2a'}}>Sign Out</button>
+          </div>
+
           {/* Dropzone Area */}
           <div 
             {...getRootProps()} 
@@ -195,7 +294,7 @@ const AdminPortal = () => {
                 <div className="dropzone-text">
                   {isDragActive ? "DEPLOY FILE HERE" : "DRAG & DROP ARCHIVE OR CLICK TO BROWSE"}
                 </div>
-                <div className="dropzone-subtext">SUPPORTED FORMATS: .PDF, .ZIP, .MD, .TXT</div>
+                <div className="dropzone-subtext">SUPPORTED FORMATS: .PDF, .PPT, .PPTX, .ZIP, .MD, .TXT</div>
               </>
             )}
           </div>
@@ -267,6 +366,32 @@ const AdminPortal = () => {
               </button>
             </>
           )}
+
+          {/* Artifacts Manager (Admin) */}
+          <div style={{marginTop: '2rem'}}>
+            <h3 style={{marginBottom:'0.5rem'}}>Artifacts Manager</h3>
+            {loadingArtifacts ? <div>Loading artifacts...</div> : (
+              artifacts && artifacts.length>0 ? (
+                <div style={{display:'flex',flexDirection:'column',gap:'0.5rem'}}>
+                  {artifacts.map(a=> (
+                    <div key={a.filename} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'0.5rem',background:'rgba(10,10,10,0.4)',border:'1px solid #1a1a1a'}}>
+                      <div>
+                        <div style={{fontWeight:700,color:'#ffd700'}}>{a.title || a.originalName}</div>
+                        <div style={{fontSize:'0.9rem',color:'#cfcfcf'}}>{a.summary || ''}</div>
+                        <div style={{fontSize:'0.8rem',color:'#9a9a9a'}}>{'Uploaded: '+ new Date(a.uploadedAt).toLocaleString() + ' • Version: ' + (a.version||'-')}</div>
+                      </div>
+                      <div style={{display:'flex',gap:'0.5rem'}}>
+                        <a href={a.url} target="_blank" rel="noreferrer" className="cyber-button" style={{background:'#ffd700',color:'#050505',textDecoration:'none'}}>Download</a>
+                        <button className="cyber-button" onClick={()=>handleDelete(a.filename)} style={{background:'#8b0000'}}>Delete</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="value">No artifacts uploaded yet.</div>
+              )
+            )}
+          </div>
         </div>
       </div>
     </div>

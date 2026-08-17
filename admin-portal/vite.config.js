@@ -6,8 +6,14 @@ export default defineConfig({
   root: 'src',
   base: './',
   build: {
-    outDir: '../',
-    emptyOutDir: false,
+    outDir: '../dist',
+    emptyOutDir: true,
+  },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:8080',
+      '/uploads': 'http://localhost:8080'
+    }
   },
   plugins: [react()],
 })

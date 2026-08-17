@@ -1,0 +1,34 @@
+name: Deploy API to EC2 (via SSH)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'api/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Pull image tag
+        run: echo "IMAGE=ghcr.io/${{ github.repository_owner }}/ucs503-api:latest" >> $GITHUB_ENV
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v0.1.9
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.EC2_SSH_PORT || '22' }}
+          script: |
+            set -e
+            echo "Logging into ghcr..."
+            echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+            docker pull $IMAGE
+            # If you use docker-compose on the server, update the image reference in the compose file or rely on image:latest
+            docker compose pull || true
+            docker compose up -d --no-build
