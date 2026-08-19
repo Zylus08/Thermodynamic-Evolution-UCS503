@@ -1,0 +1,15 @@
+# Node/React
+node_modules/
+dist/
+.vite/
+
+# Rust
+target/
+Cargo.lock
+
+# Go / Backend
+uploads/
+*.exe
+
+# OS generated files
+.DS_Store
