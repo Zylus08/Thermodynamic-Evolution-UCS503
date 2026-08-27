@@ -6,13 +6,21 @@ import {
 } from 'lucide-react';
 import './AdminPortal.css';
 
-<<<<<<< HEAD
 const apiBase = import.meta.env.VITE_API_BASE || '/api';
-=======
+
+const readResponse = async (response) => {
+  const text = await response.text();
+  if (!text) return {};
+  try {
+    return JSON.parse(text);
+  } catch {
+    return { message: text };
+  }
+};
+
 // ─────────────────────────────────────────────────────────────────────────────
 // AdminPortal — top-level component managing all portal views
 // ─────────────────────────────────────────────────────────────────────────────
->>>>>>> b9beb5fda5b9c42a36ceb65d6ebade5a89a6a3ae
 
 const AdminPortal = () => {
 
@@ -52,29 +60,20 @@ const AdminPortal = () => {
   // Auth
   // ─────────────────────────────────────────────────────────────────────────
 
-<<<<<<< HEAD
-  // --- Auth Handlers ---
   const handleLogin = async (e) => {
-=======
-  const handleLogin = (e) => {
->>>>>>> b9beb5fda5b9c42a36ceb65d6ebade5a89a6a3ae
     e.preventDefault();
-    setAuthError('');
-
     try {
-      const resp = await fetch(apiBase + '/login', {
+      const response = await fetch(`${apiBase}/login`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ passkey: password })
+        body: JSON.stringify({ passkey: password }),
       });
-
-      if (!resp.ok) {
-        throw new Error('Invalid passkey');
-      }
-
+      if (!response.ok) throw new Error('Invalid passkey');
       setIsAuthenticated(true);
-    } catch (err) {
+      setActiveView('dashboard');
+      setAuthError('');
+    } catch {
       setAuthError('ACCESS DENIED. INVALID CREDENTIALS.');
     }
   };
@@ -97,15 +96,8 @@ const AdminPortal = () => {
 
     if (acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
-<<<<<<< HEAD
-      // Simulated validation check (e.g. limit to 100MB)
-      if (file.size > 100 * 1024 * 1024) {
-        setFileError('FILE EXCEEDS MAXIMUM ALLOWED SIZE (100MB).');
-        setSelectedFile(null);
-=======
       if (file.size > 50 * 1024 * 1024) {
         setFileError('FILE EXCEEDS MAXIMUM ALLOWED SIZE (50MB).');
->>>>>>> b9beb5fda5b9c42a36ceb65d6ebade5a89a6a3ae
         return;
       }
       setSelectedFile(file);
@@ -120,10 +112,6 @@ const AdminPortal = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple: false,
-<<<<<<< HEAD
-    // Accept standard document/archive formats for a project (added PPT/PPTX)
-=======
->>>>>>> b9beb5fda5b9c42a36ceb65d6ebade5a89a6a3ae
     accept: {
       // ── PowerPoint (both legacy .ppt and modern .pptx) ───────────────────
       // react-dropzone validates by MIME type; the browser may report either
@@ -135,115 +123,18 @@ const AdminPortal = () => {
       'application/zip': ['.zip'],
       'text/markdown': ['.md'],
       'text/plain': ['.txt'],
-<<<<<<< HEAD
-      'application/vnd.ms-powerpoint': ['.ppt'],
-      'application/vnd.openxmlformats-officedocument.presentationml.presentation': ['.pptx']
-    }
-  });
-
-  // --- Form Handlers ---
-  const [artifacts, setArtifacts] = useState([]);
-  const [loadingArtifacts, setLoadingArtifacts] = useState(false);
-=======
     },
   });
 
   // ─────────────────────────────────────────────────────────────────────────
   // Form
   // ─────────────────────────────────────────────────────────────────────────
->>>>>>> b9beb5fda5b9c42a36ceb65d6ebade5a89a6a3ae
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-<<<<<<< HEAD
-  const fetchArchives = async () => {
-    setLoadingArtifacts(true);
-    setFileError('');
-    try {
-      const resp = await fetch(apiBase + '/archives', { credentials: 'include' });
-      if (!resp.ok) {
-        setFileError('Failed to load artifacts: ' + resp.statusText);
-        setArtifacts([]);
-        setLoadingArtifacts(false);
-        return;
-      }
-      const data = await resp.json();
-      setArtifacts(data);
-    } catch (err) {
-      console.error(err);
-      setFileError('Network error when fetching artifacts.');
-    }
-    setLoadingArtifacts(false);
-  };
-
-  const handleLogout = async () => {
-    try {
-      await fetch(apiBase + '/logout', {
-        method: 'POST',
-        credentials: 'include'
-      });
-    } catch (err) {
-      console.error('Logout failed', err);
-    }
-
-    setIsAuthenticated(false);
-    setPassword('');
-    setArtifacts([]);
-    setSelectedFile(null);
-    setPublishSuccess(false);
-    setFileError('');
-  };
-
-  const handleDelete = async (filename) => {
-    if (!confirm('Delete artifact ' + filename + '? This cannot be undone.')) return;
-    try {
-      const resp = await fetch(apiBase + '/archive?filename=' + encodeURIComponent(filename), {
-        method: 'DELETE',
-        credentials: 'include'
-      });
-      if (!resp.ok) { const txt = await resp.text(); setFileError('Delete failed: ' + txt); return; }
-      fetchArchives();
-    } catch (err) { console.error(err); setFileError('Network error deleting artifact.'); }
-  };
-
-  const handlePublish = async () => {
-    if (!selectedFile || !formData.title || !formData.version) {
-      return;
-    }
-
-    setIsPublishing(true);
-    setFileError('');
-
-    try {
-      const fd = new FormData();
-      fd.append('file', selectedFile);
-      fd.append('title', formData.title);
-      fd.append('version', formData.version);
-      fd.append('date', formData.date);
-      fd.append('summary', formData.summary);
-
-      const resp = await fetch(apiBase + '/upload', {
-        method: 'POST',
-        credentials: 'include',
-        body: fd
-      });
-
-      if (!resp.ok) {
-        const txt = await resp.text();
-        setFileError(`UPLOAD FAILED: ${txt}`);
-        setIsPublishing(false);
-        return;
-      }
-
-      setIsPublishing(false);
-      setPublishSuccess(true);
-    } catch (err) {
-      console.error('Upload error', err);
-      setFileError('NETWORK ERROR: Unable to reach upload endpoint.');
-=======
   // ─────────────────────────────────────────────────────────────────────────
   // Publish — real multipart/form-data POST to Go backend
   // ─────────────────────────────────────────────────────────────────────────
@@ -265,22 +156,29 @@ const AdminPortal = () => {
       body.append('summary', formData.summary);
 
       // Vite proxies /api/* → http://localhost:8080/* (strips /api prefix)
-      const response = await fetch('/api/upload', { method: 'POST', body });
-      const json = await response.json();
+      const response = await fetch(`${apiBase}/upload`, {
+        method: 'POST',
+        credentials: 'include',
+        body,
+      });
+      const json = await readResponse(response);
 
-      if (!response.ok || !json.success) {
+      if (!response.ok) {
+        if (response.status === 401) {
+          setIsAuthenticated(false);
+          setAuthError('SESSION EXPIRED. PLEASE LOG IN AGAIN.');
+          return;
+        }
         throw new Error(json.message || `HTTP ${response.status}`);
       }
 
-      // Backend now returns the full Deliverable object under json.data
-      setLastDeliverable(json.data);
+      setLastDeliverable(json.data || json);
       setPublishSuccess(true);
 
     } catch (err) {
       console.error('[UPLOAD ERROR]', err);
       setPublishError(`UPLOAD FAILED: ${err.message}`);
     } finally {
->>>>>>> b9beb5fda5b9c42a36ceb65d6ebade5a89a6a3ae
       setIsPublishing(false);
     }
   };
@@ -293,9 +191,9 @@ const AdminPortal = () => {
     setArchiveLoading(true);
     setArchiveError('');
     try {
-      const response = await fetch('/api/deliverables');
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data = await response.json();
+      const response = await fetch(`${apiBase}/deliverables`, { credentials: 'include' });
+      const data = await readResponse(response);
+      if (!response.ok) throw new Error(data.message || `HTTP ${response.status}`);
       // Backend always returns an array (never null)
       setDeliverables(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -441,25 +339,17 @@ const AdminPortal = () => {
           </div>
         </div>
 
-<<<<<<< HEAD
-        <div className="dashboard-container">
-          <div style={{display:'flex', justifyContent:'space-between', gap:'0.75rem', marginBottom:'1rem', flexWrap:'wrap'}}>
-            <button className="cyber-button" onClick={fetchArchives} type="button">Load Artifacts</button>
-            <button className="cyber-button" onClick={()=>{setArtifacts([]);}} type="button" style={{background:'#2a2a2a'}}>Clear</button>
-            <button className="cyber-button" onClick={handleLogout} type="button" style={{background:'#2a2a2a'}}>Sign Out</button>
-          </div>
-
-          {/* Dropzone Area */}
-          <div 
-            {...getRootProps()} 
-            className={`dropzone-area ${isDragActive ? 'active' : ''} ${selectedFile ? 'has-file' : ''}`}
-=======
         {/* ── Tab switcher ─────────────────────────────────────────────── */}
         <div className="tab-bar">
           <button
+            className={`tab-btn ${activeView === 'dashboard' ? 'active' : ''}`}
+            onClick={() => setActiveView('dashboard')}
+          >
+            <Terminal size={14} /> DASHBOARD
+          </button>
+          <button
             className={`tab-btn ${activeView === 'upload' ? 'active' : ''}`}
             onClick={() => setActiveView('upload')}
->>>>>>> b9beb5fda5b9c42a36ceb65d6ebade5a89a6a3ae
           >
             <UploadCloud size={14} /> UPLOAD
           </button>
@@ -470,6 +360,34 @@ const AdminPortal = () => {
             <Database size={14} /> VIEW ARCHIVE
           </button>
         </div>
+
+        {activeView === 'dashboard' && (
+          <div className="dashboard-container">
+            <div className="dashboard-heading">
+              <div>
+                <span className="archive-title">SYSTEM DASHBOARD</span>
+                <h1>Welcome to the Archive</h1>
+                <p>Manage project deliverables from one secure workspace.</p>
+              </div>
+              <div className="online-badge"><span className="status-dot" /> SYSTEM ONLINE</div>
+            </div>
+            <div className="dashboard-hero">
+              <div className="hero-icon"><Terminal size={28} /></div>
+              <div>
+                <span className="hero-kicker">ARCHIVE READY</span>
+                <h2>Upload new files or browse<br /><strong>your stored deliverables.</strong></h2>
+              </div>
+            </div>
+            <div className="dashboard-actions">
+              <button className="cyber-button" onClick={() => setActiveView('upload')}>
+                <UploadCloud size={18} /> UPLOAD FILE
+              </button>
+              <button className="cyber-button" onClick={() => setActiveView('archive')}>
+                <Database size={18} /> VIEW ARCHIVE
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* ══════════════════════════════════════════════════════════════ */}
         {/* UPLOAD VIEW                                                   */}
@@ -488,9 +406,6 @@ const AdminPortal = () => {
                   <File size={32} />
                   <span>{selectedFile.name}</span>
                 </div>
-<<<<<<< HEAD
-                <div className="dropzone-subtext">SUPPORTED FORMATS: .PDF, .PPT, .PPTX, .ZIP, .MD, .TXT</div>
-=======
               ) : (
                 <>
                   <UploadCloud size={48} className="upload-icon" />
@@ -556,7 +471,6 @@ const AdminPortal = () => {
                     ? <><Loader2 className="spinner" size={20} /> TRANSMITTING TO BACKEND...</>
                     : 'PUBLISH TO ARCHIVE'}
                 </button>
->>>>>>> b9beb5fda5b9c42a36ceb65d6ebade5a89a6a3ae
               </>
             )}
           </div>
@@ -573,37 +487,6 @@ const AdminPortal = () => {
               <button className="cyber-button-sm" onClick={fetchDeliverables} disabled={archiveLoading}>
                 {archiveLoading ? <Loader2 className="spinner" size={14} /> : '⟳ REFRESH'}
               </button>
-<<<<<<< HEAD
-            </>
-          )}
-
-          {/* Artifacts Manager (Admin) */}
-          <div style={{marginTop: '2rem'}}>
-            <h3 style={{marginBottom:'0.5rem'}}>Artifacts Manager</h3>
-            {loadingArtifacts ? <div>Loading artifacts...</div> : (
-              artifacts && artifacts.length>0 ? (
-                <div style={{display:'flex',flexDirection:'column',gap:'0.5rem'}}>
-                  {artifacts.map(a=> (
-                    <div key={a.filename} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'0.5rem',background:'rgba(10,10,10,0.4)',border:'1px solid #1a1a1a'}}>
-                      <div>
-                        <div style={{fontWeight:700,color:'#ffd700'}}>{a.title || a.originalName}</div>
-                        <div style={{fontSize:'0.9rem',color:'#cfcfcf'}}>{a.summary || ''}</div>
-                        <div style={{fontSize:'0.8rem',color:'#9a9a9a'}}>{'Uploaded: '+ new Date(a.uploadedAt).toLocaleString() + ' • Version: ' + (a.version||'-')}</div>
-                      </div>
-                      <div style={{display:'flex',gap:'0.5rem'}}>
-                        <a href={a.url} target="_blank" rel="noreferrer" className="cyber-button" style={{background:'#ffd700',color:'#050505',textDecoration:'none'}}>Download</a>
-                        <button className="cyber-button" onClick={()=>handleDelete(a.filename)} style={{background:'#8b0000'}}>Delete</button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="value">No artifacts uploaded yet.</div>
-              )
-            )}
-          </div>
-        </div>
-=======
             </div>
 
             {archiveError && (
@@ -670,7 +553,6 @@ const AdminPortal = () => {
           </div>
         )}
 
->>>>>>> b9beb5fda5b9c42a36ceb65d6ebade5a89a6a3ae
       </div>
     </div>
   );

@@ -18,6 +18,10 @@ Or (cross-platform manual):
    $env:PORT=8080
    go run main.go
 
+   When the frontend is hosted on a different origin, set `CORS_ALLOWED_ORIGINS`
+   on the API to the frontend origin (for example, `https://zylus08.github.io`).
+   Multiple origins may be comma-separated.
+
    # Frontend (run in separate terminal)
    cd admin-portal
    npm ci

@@ -1,0 +1,20 @@
+[
+  {
+    "filename": "20260827T131155Z__at.pdf",
+    "originalName": "at.pdf",
+    "title": "at",
+    "version": "1",
+    "summary": "erwerf",
+    "uploadedAt": "2026-08-27T13:11:55Z",
+    "url": "/uploads/20260827T131155Z__at.pdf"
+  },
+  {
+    "filename": "20260822T114244Z__upload_test.txt",
+    "originalName": "upload_test.txt",
+    "title": "Test Upload",
+    "version": "v1",
+    "summary": "Smoke test",
+    "uploadedAt": "2026-08-22T11:42:44Z",
+    "url": "/uploads/20260822T114244Z__upload_test.txt"
+  }
+]

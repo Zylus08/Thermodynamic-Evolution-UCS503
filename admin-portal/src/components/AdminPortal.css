@@ -349,6 +349,110 @@
   box-shadow: 0 4px 15px rgba(255, 215, 0, 0.08);
 }
 
+.dashboard-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.dashboard-actions .cyber-button {
+  min-width: 190px;
+}
+
+.dashboard-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.75rem;
+}
+
+.dashboard-heading h1 {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  margin: 0.55rem 0 0.35rem;
+}
+
+.dashboard-heading p {
+  color: var(--text-muted);
+  font-family: monospace;
+  font-size: 0.82rem;
+}
+
+.online-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  color: var(--gold);
+  font-family: monospace;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  padding: 0.6rem 0.75rem;
+}
+
+.dashboard-hero {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 130px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 215, 0, 0.28);
+  background: radial-gradient(circle at 15% 50%, rgba(255, 215, 0, 0.12), transparent 38%), linear-gradient(135deg, #19170d, #0c0c0c);
+  box-shadow: inset 0 0 35px rgba(255, 215, 0, 0.04);
+}
+
+.hero-icon {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  box-shadow: 0 0 24px var(--gold-glow);
+}
+
+.hero-kicker {
+  color: var(--gold);
+  font-family: monospace;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+}
+
+.dashboard-hero h2 {
+  margin-top: 0.6rem;
+  color: var(--text-primary);
+  font-size: 1.45rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 1.3;
+}
+
+.dashboard-hero h2 strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.dashboard-actions {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 650px) {
+  .dashboard-heading {
+    display: block;
+  }
+  .online-badge {
+    width: fit-content;
+    margin-top: 1rem;
+  }
+  .dashboard-actions {
+    flex-direction: column;
+  }
+}
+
 /* ─── Archive View ─────────────────────────────────────────────────── */
 
 .archive-header-row {
@@ -519,4 +623,3 @@
   color: var(--bg-main);
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
 }
-

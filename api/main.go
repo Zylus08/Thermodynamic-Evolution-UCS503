@@ -110,6 +110,51 @@ func constantTimeEquals(a, b string) bool {
 	return subtle.ConstantTimeCompare([]byte(a), []byte(b)) == 1
 }
 
+func sessionSameSite(r *http.Request) http.SameSite {
+	if r != nil && r.TLS != nil {
+		return http.SameSiteNoneMode
+	}
+	return http.SameSiteLaxMode
+}
+
+func corsMiddleware(next http.Handler) http.Handler {
+	allowedOrigins := map[string]struct{}{
+		"http://localhost:5173":     {},
+		"http://127.0.0.1:5173":     {},
+		"https://zylus08.github.io": {},
+	}
+	for _, origin := range strings.Split(os.Getenv("CORS_ALLOWED_ORIGINS"), ",") {
+		origin = strings.TrimSpace(strings.TrimRight(origin, "/"))
+		if origin != "" {
+			allowedOrigins[origin] = struct{}{}
+		}
+	}
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		origin := strings.TrimRight(r.Header.Get("Origin"), "/")
+		if _, allowed := allowedOrigins[origin]; allowed {
+			w.Header().Set("Access-Control-Allow-Origin", origin)
+			w.Header().Set("Access-Control-Allow-Credentials", "true")
+			w.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-API-Token, Authorization")
+			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
+			w.Header().Add("Vary", "Origin")
+		}
+		if r.Method == http.MethodOptions {
+			if origin == "" {
+				http.Error(w, "Origin required", http.StatusForbidden)
+				return
+			}
+			if _, allowed := allowedOrigins[origin]; !allowed {
+				http.Error(w, "Origin not allowed", http.StatusForbidden)
+				return
+			}
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
 func ensureUploadsDir() error {
 	if _, err := os.Stat(uploadsDir); os.IsNotExist(err) {
 		return os.MkdirAll(uploadsDir, 0o755)
@@ -349,7 +394,6 @@ func main() {
 
 		passkey := strings.TrimSpace(payload.Passkey)
 		expectedKey := strings.TrimSpace(adminPasskey)
-		log.Printf("[AUTH] incoming=%q expected=%q length_in=%d length_exp=%d", passkey, expectedKey, len(passkey), len(expectedKey))
 		if passkey == "" || !constantTimeEquals(passkey, expectedKey) {
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 			return
@@ -365,7 +409,7 @@ func main() {
 			Value:    token,
 			HttpOnly: true,
 			Path:     "/",
-			SameSite: http.SameSiteLaxMode,
+			SameSite: sessionSameSite(r),
 			Secure:   r.TLS != nil,
 			MaxAge:   int(sessionTTL.Seconds()),
 		})
@@ -393,7 +437,7 @@ func main() {
 			Path:     "/",
 			HttpOnly: true,
 			MaxAge:   -1,
-			SameSite: http.SameSiteLaxMode,
+			SameSite: sessionSameSite(r),
 			Secure:   r.TLS != nil,
 		})
 		w.WriteHeader(http.StatusOK)
@@ -639,7 +683,7 @@ func main() {
 	}
 	addr := ":" + port
 	log.Printf("[SYS] Starting Go API on internal port %s...", addr)
-	if err := http.ListenAndServe(addr, mux); err != nil {
+	if err := http.ListenAndServe(addr, corsMiddleware(mux)); err != nil {
 		log.Fatalf("[FATAL] Server failed to start: %v", err)
 	}
 }
