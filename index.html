@@ -1291,6 +1291,11 @@
                 </div>
                 <div class="project-details">
                     <div class="project-details-inner">
+                        <div id="project-artifacts" style="margin-top: 1.5rem;">
+                            <div class="section-label">project.artifacts</div>
+                            <h3 style="margin-top: 0.25rem;">Project Artifacts & Presentations</h3>
+                            <div id="artifact-list" style="margin-top: 0.75rem;">Loading artifacts…</div>
+                        </div>
                         <div class="section-label" style="margin-top: 1.5rem;">development.phases</div>
                         <div class="phase-list">
 
@@ -1613,6 +1618,80 @@
             });
             card.classList.toggle('expanded');
         }
+    </script>
+
+    <script>
+    (async function(){
+      try {
+        const apiBase = (window.API_BASE || '').replace(/\/$/, '');
+        const resp = await fetch((apiBase || '') + '/api/archives');
+        const container = document.getElementById('artifact-list');
+        if (!container) return;
+        if (!resp.ok) { container.innerText = 'Unable to load artifacts.'; return; }
+        const entries = await resp.json();
+        if (!entries || entries.length === 0) { container.innerHTML = '<div class="value">No artifacts uploaded yet.</div>'; return; }
+        const list = document.createElement('div');
+        list.style.display = 'flex';
+        list.style.flexDirection = 'column';
+        list.style.gap = '0.75rem';
+
+        entries.forEach(e => {
+          const el = document.createElement('div');
+          el.style.display = 'flex';
+          el.style.justifyContent = 'space-between';
+          el.style.alignItems = 'center';
+          el.style.background = 'rgba(10,10,10,0.45)';
+          el.style.border = '1px solid #1a1a1a';
+          el.style.padding = '0.75rem 1rem';
+
+          const left = document.createElement('div');
+          const title = document.createElement('div');
+          title.style.fontWeight = '700';
+          title.style.color = '#ffd700';
+          title.textContent = e.title || e.originalName;
+
+          const summary = document.createElement('div');
+          summary.style.fontSize = '0.9rem';
+          summary.style.color = '#cfcfcf';
+          summary.textContent = e.summary || '';
+
+          const meta = document.createElement('div');
+          meta.style.fontSize = '0.8rem';
+          meta.style.color = '#9a9a9a';
+          meta.style.marginTop = '0.35rem';
+          meta.textContent = 'Uploaded: ' + new Date(e.uploadedAt).toLocaleString() + ' • Version: ' + (e.version || '-');
+
+          left.appendChild(title);
+          left.appendChild(summary);
+          left.appendChild(meta);
+
+          const right = document.createElement('div');
+          const a = document.createElement('a');
+          a.href = e.url || '#';
+          a.target = '_blank';
+          a.textContent = 'Download';
+          a.style.background = '#ffd700';
+          a.style.color = '#050505';
+          a.style.padding = '6px 10px';
+          a.style.textDecoration = 'none';
+          a.style.borderRadius = '2px';
+
+          right.appendChild(a);
+
+          el.appendChild(left);
+          el.appendChild(right);
+
+          list.appendChild(el);
+        });
+
+        container.innerHTML = '';
+        container.appendChild(list);
+      } catch (err) {
+        console.error(err);
+        const container = document.getElementById('artifact-list');
+        if (container) container.innerText = 'Failed to load artifacts.';
+      }
+    })();
     </script>
 
 </body>

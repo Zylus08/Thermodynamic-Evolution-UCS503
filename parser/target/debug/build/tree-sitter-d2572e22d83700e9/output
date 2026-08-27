@@ -1,0 +1,327 @@
+cargo:rerun-if-env-changed=TREE_SITTER_STATIC_ANALYSIS
+cargo:rerun-if-changed=src\alloc.c
+cargo:rerun-if-changed=src\alloc.h
+cargo:rerun-if-changed=src\array.h
+cargo:rerun-if-changed=src\atomic.h
+cargo:rerun-if-changed=src\clock.h
+cargo:rerun-if-changed=src\error_costs.h
+cargo:rerun-if-changed=src\get_changed_ranges.c
+cargo:rerun-if-changed=src\get_changed_ranges.h
+cargo:rerun-if-changed=src\host.h
+cargo:rerun-if-changed=src\language.c
+cargo:rerun-if-changed=src\language.h
+cargo:rerun-if-changed=src\length.h
+cargo:rerun-if-changed=src\lexer.c
+cargo:rerun-if-changed=src\lexer.h
+cargo:rerun-if-changed=src\lib.c
+cargo:rerun-if-changed=src\node.c
+cargo:rerun-if-changed=src\parser.c
+cargo:rerun-if-changed=src\point.h
+cargo:rerun-if-changed=src\query.c
+cargo:rerun-if-changed=src\reduce_action.h
+cargo:rerun-if-changed=src\reusable_node.h
+cargo:rerun-if-changed=src\stack.c
+cargo:rerun-if-changed=src\stack.h
+cargo:rerun-if-changed=src\subtree.c
+cargo:rerun-if-changed=src\subtree.h
+cargo:rerun-if-changed=src\tree.c
+cargo:rerun-if-changed=src\tree.h
+cargo:rerun-if-changed=src\tree_cursor.c
+cargo:rerun-if-changed=src\tree_cursor.h
+cargo:rerun-if-changed=src\unicode
+cargo:rerun-if-changed=src\unicode.h
+cargo:rerun-if-env-changed=CC_FORCE_DISABLE
+CC_FORCE_DISABLE = None
+cargo:rerun-if-env-changed=VCINSTALLDIR
+VCINSTALLDIR = None
+cargo:rerun-if-env-changed=VSTEL_MSBuildProjectFullPath
+VSTEL_MSBuildProjectFullPath = None
+cargo:rerun-if-env-changed=VCToolsVersion
+VCToolsVersion = None
+cargo:rerun-if-env-changed=VSCMD_ARG_VCVARS_SPECTRE
+VSCMD_ARG_VCVARS_SPECTRE = None
+cargo:rerun-if-env-changed=WindowsSdkDir
+WindowsSdkDir = None
+cargo:rerun-if-env-changed=WindowsSDKVersion
+WindowsSDKVersion = None
+cargo:rerun-if-env-changed=LIB
+LIB = None
+PATH = Some(D:\Vs code\Software\Thermodynamic-Evolution-UCS503\parser\target\debug\deps;C:\Users\Abhay Kumar\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\x86_64-pc-windows-msvc\lib;c:\Users\Abhay Kumar\.vscode\extensions\vadimcn.vscode-lldb-1.12.1\bin;c:\Users\Abhay Kumar\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\Abhay Kumar\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Program Files\Python311\Scripts\;C:\Program Files\Python311\;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\libnvvp;C:\Program Files\Python312\Scripts\;C:\Program Files\Python312\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\MinGW\bin;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\R\R-4.5.2\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2023.1.0\;C:\Program Files\MySQL\MySQL Router 8.0\bin;C:\Program Files\MongoDB\mongosh;C:\Users\Abhay Kumar\.local\bin;;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Cloudflare\Cloudflare WARP\;C:\Program Files\Go\bin;C:\Users\Abhay Kumar\.cargo\bin;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python310\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Program Files\Python312\Scripts\;C:\Program Files\Python312\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\MinGW\bin;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\MATLAB\R2025a\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Users\Abhay Kumar\scoop\shims;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python313\;C:\Users\Abhay K;C:\Users\Abhay Kumar\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Abhay Kumar\AppData\Roaming\npm;C:\Program Files\MongoDB\;C:\Users\Abhay Kumar\AppData\Local\Programs\Antigravity\bin;C:\Users\Abhay Kumar\AppData\Local\Programs\Ollama;C:\Users\Abhay Kumar\AppData\Local\Programs\cursor\resources\app\bin;C:\Users\Abhay Kumar\AppData\Local\Programs\Antigravity IDE\bin;C:\Users\Abhay Kumar\go\bin;c:\Users\Abhay Kumar\.vscode\extensions\ms-python.debugpy-2026.6.0-win32-x64\bundled\scripts\noConfigScripts;C:\Users\Abhay Kumar\.rustup\toolchains\stable-x86_64-pc-windows-msvc\bin)
+cargo:rerun-if-env-changed=INCLUDE
+INCLUDE = None
+cargo:rerun-if-env-changed=CC_x86_64-pc-windows-msvc
+CC_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=CC_x86_64_pc_windows_msvc
+CC_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=HOST_CC
+HOST_CC = None
+cargo:rerun-if-env-changed=CC
+CC = None
+cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+CRATE_CC_NO_DEFAULTS = None
+cargo:rerun-if-env-changed=CFLAGS
+CFLAGS = None
+cargo:rerun-if-env-changed=HOST_CFLAGS
+HOST_CFLAGS = None
+cargo:rerun-if-env-changed=CFLAGS_x86_64_pc_windows_msvc
+CFLAGS_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=CFLAGS_x86_64-pc-windows-msvc
+CFLAGS_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+CRATE_CC_NO_DEFAULTS = None
+cargo:rerun-if-env-changed=CFLAGS
+CFLAGS = None
+cargo:rerun-if-env-changed=HOST_CFLAGS
+HOST_CFLAGS = None
+cargo:rerun-if-env-changed=CFLAGS_x86_64_pc_windows_msvc
+CFLAGS_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=CFLAGS_x86_64-pc-windows-msvc
+CFLAGS_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+CRATE_CC_NO_DEFAULTS = None
+cargo:rerun-if-env-changed=CFLAGS
+CFLAGS = None
+cargo:rerun-if-env-changed=HOST_CFLAGS
+HOST_CFLAGS = None
+cargo:rerun-if-env-changed=CFLAGS_x86_64_pc_windows_msvc
+CFLAGS_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=CFLAGS_x86_64-pc-windows-msvc
+CFLAGS_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+lib.c
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./alloc.c(35): warning C4232: nonstandard extension used: 'ts_current_free': address of dllimport 'free' is not static, identity not guaranteed
+C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_malloc.h(89): note: see declaration of 'free'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.h(35): warning C4201: nonstandard extension used: nameless struct/union
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.h(146): warning C4201: nonstandard extension used: nameless struct/union
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.h(153): warning C4201: nonstandard extension used: nameless struct/union
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./language.h(86): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./language.h(83): note: see declaration of 'i'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./node.c(111): warning C4244: 'initializing': conversion from 'uint32_t' to 'TSSymbol', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./node.c(415): warning C4244: 'initializing': conversion from 'uint32_t' to 'TSSymbol', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./node.c(421): warning C4244: 'initializing': conversion from 'uint32_t' to 'TSSymbol', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./node.c(443): warning C4244: 'initializing': conversion from 'uint32_t' to 'TSSymbol', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./parser.c(580): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./parser.c(874): warning C4456: declaration of 'children' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./parser.c(858): note: see declaration of 'children'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./parser.c(997): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./parser.c(992): note: see declaration of 'i'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./parser.c(1015): warning C4244: '=': conversion from 'const uint32_t' to 'TSSymbol', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./parser.c(1021): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./parser.c(992): note: see declaration of 'i'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./parser.c(1044): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./parser.c(992): note: see declaration of 'i'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./parser.c(1818): warning C4996: 'fdopen': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _fdopen. See online help for details.
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(334): warning C4244: 'function': conversion from '__int64' to 'uint32_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(338): warning C4244: '=': conversion from 'uint32_t' to 'uint8_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(369): warning C4244: 'function': conversion from 'int32_t' to 'wint_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(384): warning C4244: 'function': conversion from 'int32_t' to 'wint_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(391): warning C4244: 'function': conversion from 'int32_t' to 'wint_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(401): warning C4244: 'return': conversion from '__int64' to 'uint32_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(469): warning C4244: 'return': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(791): warning C4244: 'return': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1419): warning C4456: declaration of 'exists' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1253): note: see declaration of 'exists'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1421): warning C4456: declaration of 'exists' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1253): note: see declaration of 'exists'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1459): warning C4244: '=': conversion from 'unsigned int' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1683): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1671): note: see declaration of 'i'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1683): warning C4456: declaration of 'exists' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1679): note: see declaration of 'exists'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1746): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1671): note: see declaration of 'i'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1746): warning C4456: declaration of 'exists' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1679): note: see declaration of 'exists'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1515): warning C4244: 'initializing': conversion from 'const uint32_t' to 'TSSymbol', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1672): warning C4244: 'initializing': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1970): warning C4244: '=': conversion from 'unsigned int' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(1996): warning C4244: '=': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2098): warning C4456: declaration of 'length' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2067): note: see declaration of 'length'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2121): warning C4456: declaration of 'id' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2068): note: see declaration of 'id'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2136): warning C4456: declaration of 'length' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2067): note: see declaration of 'length'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2137): warning C4456: declaration of 'id' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2068): note: see declaration of 'id'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2067): warning C4244: 'initializing': conversion from '__int64' to 'uint32_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2098): warning C4244: 'initializing': conversion from '__int64' to 'uint32_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2136): warning C4244: 'initializing': conversion from '__int64' to 'uint32_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2184): warning C4244: 'initializing': conversion from 'const uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2225): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2237): warning C4244: '=': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2238): warning C4244: '=': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2336): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2440): warning C4244: 'function': conversion from 'const uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2472): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2492): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2572): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2573): warning C4244: '=': conversion from 'const uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2586): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2587): warning C4244: '=': conversion from 'const uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2596): warning C4244: '=': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2610): warning C4244: '=': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2305): warning C4244: 'initializing': conversion from '__int64' to 'uint32_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2356): warning C4244: 'initializing': conversion from '__int64' to 'uint32_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2389): warning C4244: 'initializing': conversion from '__int64' to 'uint32_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2419): warning C4244: 'initializing': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2500): warning C4244: 'initializing': conversion from '__int64' to 'uint32_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2619): warning C4244: 'initializing': conversion from '__int64' to 'uint32_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2754): warning C4456: declaration of 'step' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2732): note: see declaration of 'step'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2766): warning C4244: 'initializing': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2833): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2842): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2850): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(2939): warning C4244: 'function': conversion from 'int' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3064): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3127): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3131): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3238): warning C4244: 'initializing': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3279): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3288): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3337): warning C4244: 'function': conversion from 'const uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3326): warning C4244: 'initializing': conversion from '__int64' to 'uint32_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3356): warning C4018: '>': signed/unsigned mismatch
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3406): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3477): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3594): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3568): note: see declaration of 'i'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3667): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3751): warning C4456: declaration of 'state' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3595): note: see declaration of 'state'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3752): warning C4456: declaration of 'next_step' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3743): note: see declaration of 'next_step'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3792): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3568): note: see declaration of 'i'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3831): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3845): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3920): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3922): warning C4244: '=': conversion from 'const uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3923): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3938): warning C4244: 'function': conversion from 'const uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3952): warning C4244: 'function': conversion from 'const uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3991): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(3998): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(4044): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(4046): warning C4244: '=': conversion from 'const uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./query.c(4062): warning C4244: 'function': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./stack.c(336): warning C4456: declaration of 'iterator' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./stack.c(319): note: see declaration of 'iterator'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(195): warning C4244: 'initializing': conversion from 'TSSymbol' to 'uint8_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(195): warning C4244: 'initializing': conversion from 'uint32_t' to 'uint8_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(232): warning C4244: '=': conversion from 'TSSymbol' to 'uint8_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(492): warning C4244: '=': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(494): warning C4244: '=': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(516): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(536): warning C4244: 'initializing': conversion from 'unsigned int' to 'uint16_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(648): warning C4459: declaration of 'StackEntry' hides global declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./reusable_node.h(7): note: see declaration of 'StackEntry'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(662): warning C4457: declaration of 'edit' hides function parameter
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(644): note: see declaration of 'edit'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(708): warning C4244: '=': conversion from 'uint32_t' to 'uint8_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(709): warning C4244: '=': conversion from 'uint32_t' to 'uint8_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(710): warning C4244: '=': conversion from 'uint32_t' to 'uint8_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(711): warning C4244: '=': conversion from 'uint32_t' to 'uint8_t', possible loss of data
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(903): warning C4457: declaration of 'alias_symbol' hides function parameter
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(836): note: see declaration of 'alias_symbol'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(906): warning C4457: declaration of 'alias_is_named' hides function parameter
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(836): note: see declaration of 'alias_is_named'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(911): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(894): note: see declaration of 'i'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(995): warning C4457: declaration of 'alias_symbol' hides function parameter
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./subtree.c(954): note: see declaration of 'alias_symbol'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./tree_cursor.c(368): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./tree_cursor.c(291): note: see declaration of 'i'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./tree_cursor.c(378): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./tree_cursor.c(291): note: see declaration of 'i'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./tree_cursor.c(448): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\./tree_cursor.c(423): note: see declaration of 'i'
+C:\Users\Abhay Kumar\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-0.20.10\src\tree_cursor.c(130) : warning C4702: unreachable code
+cargo:rerun-if-env-changed=AR_x86_64-pc-windows-msvc
+AR_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=AR_x86_64_pc_windows_msvc
+AR_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=HOST_AR
+HOST_AR = None
+cargo:rerun-if-env-changed=AR
+AR = None
+cargo:rerun-if-env-changed=VCINSTALLDIR
+VCINSTALLDIR = None
+cargo:rerun-if-env-changed=VSTEL_MSBuildProjectFullPath
+VSTEL_MSBuildProjectFullPath = None
+cargo:rerun-if-env-changed=VCToolsVersion
+VCToolsVersion = None
+cargo:rerun-if-env-changed=VSCMD_ARG_VCVARS_SPECTRE
+VSCMD_ARG_VCVARS_SPECTRE = None
+cargo:rerun-if-env-changed=WindowsSdkDir
+WindowsSdkDir = None
+cargo:rerun-if-env-changed=WindowsSDKVersion
+WindowsSDKVersion = None
+cargo:rerun-if-env-changed=LIB
+LIB = None
+PATH = Some(D:\Vs code\Software\Thermodynamic-Evolution-UCS503\parser\target\debug\deps;C:\Users\Abhay Kumar\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\x86_64-pc-windows-msvc\lib;c:\Users\Abhay Kumar\.vscode\extensions\vadimcn.vscode-lldb-1.12.1\bin;c:\Users\Abhay Kumar\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\Abhay Kumar\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Program Files\Python311\Scripts\;C:\Program Files\Python311\;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\libnvvp;C:\Program Files\Python312\Scripts\;C:\Program Files\Python312\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\MinGW\bin;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\R\R-4.5.2\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2023.1.0\;C:\Program Files\MySQL\MySQL Router 8.0\bin;C:\Program Files\MongoDB\mongosh;C:\Users\Abhay Kumar\.local\bin;;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Cloudflare\Cloudflare WARP\;C:\Program Files\Go\bin;C:\Users\Abhay Kumar\.cargo\bin;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python310\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Program Files\Python312\Scripts\;C:\Program Files\Python312\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\MinGW\bin;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\MATLAB\R2025a\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Users\Abhay Kumar\scoop\shims;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python313\;C:\Users\Abhay K;C:\Users\Abhay Kumar\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Abhay Kumar\AppData\Roaming\npm;C:\Program Files\MongoDB\;C:\Users\Abhay Kumar\AppData\Local\Programs\Antigravity\bin;C:\Users\Abhay Kumar\AppData\Local\Programs\Ollama;C:\Users\Abhay Kumar\AppData\Local\Programs\cursor\resources\app\bin;C:\Users\Abhay Kumar\AppData\Local\Programs\Antigravity IDE\bin;C:\Users\Abhay Kumar\go\bin;c:\Users\Abhay Kumar\.vscode\extensions\ms-python.debugpy-2026.6.0-win32-x64\bundled\scripts\noConfigScripts;C:\Users\Abhay Kumar\.rustup\toolchains\stable-x86_64-pc-windows-msvc\bin)
+cargo:rerun-if-env-changed=INCLUDE
+INCLUDE = None
+cargo:rerun-if-env-changed=CC_x86_64-pc-windows-msvc
+CC_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=CC_x86_64_pc_windows_msvc
+CC_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=HOST_CC
+HOST_CC = None
+cargo:rerun-if-env-changed=CC
+CC = None
+cargo:rerun-if-env-changed=VCINSTALLDIR
+VCINSTALLDIR = None
+cargo:rerun-if-env-changed=VSTEL_MSBuildProjectFullPath
+VSTEL_MSBuildProjectFullPath = None
+cargo:rerun-if-env-changed=VCToolsVersion
+VCToolsVersion = None
+cargo:rerun-if-env-changed=VSCMD_ARG_VCVARS_SPECTRE
+VSCMD_ARG_VCVARS_SPECTRE = None
+cargo:rerun-if-env-changed=WindowsSdkDir
+WindowsSdkDir = None
+cargo:rerun-if-env-changed=WindowsSDKVersion
+WindowsSDKVersion = None
+cargo:rerun-if-env-changed=LIB
+LIB = None
+PATH = Some(D:\Vs code\Software\Thermodynamic-Evolution-UCS503\parser\target\debug\deps;C:\Users\Abhay Kumar\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\x86_64-pc-windows-msvc\lib;c:\Users\Abhay Kumar\.vscode\extensions\vadimcn.vscode-lldb-1.12.1\bin;c:\Users\Abhay Kumar\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\Abhay Kumar\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Program Files\Python311\Scripts\;C:\Program Files\Python311\;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\libnvvp;C:\Program Files\Python312\Scripts\;C:\Program Files\Python312\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\MinGW\bin;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\R\R-4.5.2\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2023.1.0\;C:\Program Files\MySQL\MySQL Router 8.0\bin;C:\Program Files\MongoDB\mongosh;C:\Users\Abhay Kumar\.local\bin;;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Cloudflare\Cloudflare WARP\;C:\Program Files\Go\bin;C:\Users\Abhay Kumar\.cargo\bin;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python310\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Program Files\Python312\Scripts\;C:\Program Files\Python312\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\MinGW\bin;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\MATLAB\R2025a\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Users\Abhay Kumar\scoop\shims;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python313\;C:\Users\Abhay K;C:\Users\Abhay Kumar\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Abhay Kumar\AppData\Roaming\npm;C:\Program Files\MongoDB\;C:\Users\Abhay Kumar\AppData\Local\Programs\Antigravity\bin;C:\Users\Abhay Kumar\AppData\Local\Programs\Ollama;C:\Users\Abhay Kumar\AppData\Local\Programs\cursor\resources\app\bin;C:\Users\Abhay Kumar\AppData\Local\Programs\Antigravity IDE\bin;C:\Users\Abhay Kumar\go\bin;c:\Users\Abhay Kumar\.vscode\extensions\ms-python.debugpy-2026.6.0-win32-x64\bundled\scripts\noConfigScripts;C:\Users\Abhay Kumar\.rustup\toolchains\stable-x86_64-pc-windows-msvc\bin)
+cargo:rerun-if-env-changed=INCLUDE
+INCLUDE = None
+cargo:rerun-if-env-changed=ARFLAGS
+ARFLAGS = None
+cargo:rerun-if-env-changed=HOST_ARFLAGS
+HOST_ARFLAGS = None
+cargo:rerun-if-env-changed=ARFLAGS_x86_64_pc_windows_msvc
+ARFLAGS_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=ARFLAGS_x86_64-pc-windows-msvc
+ARFLAGS_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=VCINSTALLDIR
+VCINSTALLDIR = None
+cargo:rerun-if-env-changed=VSTEL_MSBuildProjectFullPath
+VSTEL_MSBuildProjectFullPath = None
+cargo:rerun-if-env-changed=VCToolsVersion
+VCToolsVersion = None
+cargo:rerun-if-env-changed=VSCMD_ARG_VCVARS_SPECTRE
+VSCMD_ARG_VCVARS_SPECTRE = None
+cargo:rerun-if-env-changed=WindowsSdkDir
+WindowsSdkDir = None
+cargo:rerun-if-env-changed=WindowsSDKVersion
+WindowsSDKVersion = None
+cargo:rerun-if-env-changed=LIB
+LIB = None
+PATH = Some(D:\Vs code\Software\Thermodynamic-Evolution-UCS503\parser\target\debug\deps;C:\Users\Abhay Kumar\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\x86_64-pc-windows-msvc\lib;c:\Users\Abhay Kumar\.vscode\extensions\vadimcn.vscode-lldb-1.12.1\bin;c:\Users\Abhay Kumar\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\Abhay Kumar\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Program Files\Python311\Scripts\;C:\Program Files\Python311\;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\libnvvp;C:\Program Files\Python312\Scripts\;C:\Program Files\Python312\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\MinGW\bin;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\R\R-4.5.2\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2023.1.0\;C:\Program Files\MySQL\MySQL Router 8.0\bin;C:\Program Files\MongoDB\mongosh;C:\Users\Abhay Kumar\.local\bin;;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Cloudflare\Cloudflare WARP\;C:\Program Files\Go\bin;C:\Users\Abhay Kumar\.cargo\bin;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python310\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Program Files\Python312\Scripts\;C:\Program Files\Python312\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\MinGW\bin;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\MATLAB\R2025a\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Users\Abhay Kumar\scoop\shims;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\Abhay Kumar\AppData\Local\Programs\Python\Python313\;C:\Users\Abhay K;C:\Users\Abhay Kumar\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Abhay Kumar\AppData\Roaming\npm;C:\Program Files\MongoDB\;C:\Users\Abhay Kumar\AppData\Local\Programs\Antigravity\bin;C:\Users\Abhay Kumar\AppData\Local\Programs\Ollama;C:\Users\Abhay Kumar\AppData\Local\Programs\cursor\resources\app\bin;C:\Users\Abhay Kumar\AppData\Local\Programs\Antigravity IDE\bin;C:\Users\Abhay Kumar\go\bin;c:\Users\Abhay Kumar\.vscode\extensions\ms-python.debugpy-2026.6.0-win32-x64\bundled\scripts\noConfigScripts;C:\Users\Abhay Kumar\.rustup\toolchains\stable-x86_64-pc-windows-msvc\bin)
+cargo:rerun-if-env-changed=INCLUDE
+INCLUDE = None
+cargo:rerun-if-env-changed=CC_x86_64-pc-windows-msvc
+CC_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=CC_x86_64_pc_windows_msvc
+CC_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=HOST_CC
+HOST_CC = None
+cargo:rerun-if-env-changed=CC
+CC = None
+cargo:rustc-link-lib=static=tree-sitter
+cargo:rustc-link-search=native=D:\Vs code\Software\Thermodynamic-Evolution-UCS503\parser\target\debug\build\tree-sitter-d2572e22d83700e9\out

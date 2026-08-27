@@ -6,6 +6,18 @@ import {
 } from 'lucide-react';
 import './AdminPortal.css';
 
+const apiBase = import.meta.env.VITE_API_BASE || '/api';
+
+const readResponse = async (response) => {
+  const text = await response.text();
+  if (!text) return {};
+  try {
+    return JSON.parse(text);
+  } catch {
+    return { message: text };
+  }
+};
+
 // ─────────────────────────────────────────────────────────────────────────────
 // AdminPortal — top-level component managing all portal views
 // ─────────────────────────────────────────────────────────────────────────────
@@ -48,12 +60,20 @@ const AdminPortal = () => {
   // Auth
   // ─────────────────────────────────────────────────────────────────────────
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (password === 'admin') {
+    try {
+      const response = await fetch(`${apiBase}/login`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ passkey: password }),
+      });
+      if (!response.ok) throw new Error('Invalid passkey');
       setIsAuthenticated(true);
+      setActiveView('dashboard');
       setAuthError('');
-    } else {
+    } catch {
       setAuthError('ACCESS DENIED. INVALID CREDENTIALS.');
     }
   };
@@ -136,15 +156,23 @@ const AdminPortal = () => {
       body.append('summary', formData.summary);
 
       // Vite proxies /api/* → http://localhost:8080/* (strips /api prefix)
-      const response = await fetch('/api/upload', { method: 'POST', body });
-      const json = await response.json();
+      const response = await fetch(`${apiBase}/upload`, {
+        method: 'POST',
+        credentials: 'include',
+        body,
+      });
+      const json = await readResponse(response);
 
-      if (!response.ok || !json.success) {
+      if (!response.ok) {
+        if (response.status === 401) {
+          setIsAuthenticated(false);
+          setAuthError('SESSION EXPIRED. PLEASE LOG IN AGAIN.');
+          return;
+        }
         throw new Error(json.message || `HTTP ${response.status}`);
       }
 
-      // Backend now returns the full Deliverable object under json.data
-      setLastDeliverable(json.data);
+      setLastDeliverable(json.data || json);
       setPublishSuccess(true);
 
     } catch (err) {
@@ -163,9 +191,9 @@ const AdminPortal = () => {
     setArchiveLoading(true);
     setArchiveError('');
     try {
-      const response = await fetch('/api/deliverables');
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data = await response.json();
+      const response = await fetch(`${apiBase}/deliverables`, { credentials: 'include' });
+      const data = await readResponse(response);
+      if (!response.ok) throw new Error(data.message || `HTTP ${response.status}`);
       // Backend always returns an array (never null)
       setDeliverables(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -314,6 +342,12 @@ const AdminPortal = () => {
         {/* ── Tab switcher ─────────────────────────────────────────────── */}
         <div className="tab-bar">
           <button
+            className={`tab-btn ${activeView === 'dashboard' ? 'active' : ''}`}
+            onClick={() => setActiveView('dashboard')}
+          >
+            <Terminal size={14} /> DASHBOARD
+          </button>
+          <button
             className={`tab-btn ${activeView === 'upload' ? 'active' : ''}`}
             onClick={() => setActiveView('upload')}
           >
@@ -326,6 +360,34 @@ const AdminPortal = () => {
             <Database size={14} /> VIEW ARCHIVE
           </button>
         </div>
+
+        {activeView === 'dashboard' && (
+          <div className="dashboard-container">
+            <div className="dashboard-heading">
+              <div>
+                <span className="archive-title">SYSTEM DASHBOARD</span>
+                <h1>Welcome to the Archive</h1>
+                <p>Manage project deliverables from one secure workspace.</p>
+              </div>
+              <div className="online-badge"><span className="status-dot" /> SYSTEM ONLINE</div>
+            </div>
+            <div className="dashboard-hero">
+              <div className="hero-icon"><Terminal size={28} /></div>
+              <div>
+                <span className="hero-kicker">ARCHIVE READY</span>
+                <h2>Upload new files or browse<br /><strong>your stored deliverables.</strong></h2>
+              </div>
+            </div>
+            <div className="dashboard-actions">
+              <button className="cyber-button" onClick={() => setActiveView('upload')}>
+                <UploadCloud size={18} /> UPLOAD FILE
+              </button>
+              <button className="cyber-button" onClick={() => setActiveView('archive')}>
+                <Database size={18} /> VIEW ARCHIVE
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* ══════════════════════════════════════════════════════════════ */}
         {/* UPLOAD VIEW                                                   */}
